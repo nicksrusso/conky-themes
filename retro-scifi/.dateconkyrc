@@ -1,0 +1,50 @@
+-- Conky configuration for centered date/time display
+
+conky.config = {
+    -- Window settings
+    alignment = 'middle_middle',
+    gap_x = 0,
+    gap_y = -300,  -- Adjust this to position vertically
+    minimum_height = 100,
+    minimum_width = 800,
+    maximum_width = 800,
+    
+    -- Appearance
+    background = false,
+    border_width = 0,
+    draw_borders = false,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'desktop',
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+    own_window_argb_value = 0,
+    
+    -- Text styling
+    use_xft = true,
+    font = 'Share Tech Mono:size=10',
+    uppercase = false,
+    override_utf8_locale = true,
+    
+    -- Colors
+    default_color = '#FFE863',  -- yellow
+    color1 = '#FFE863',         -- yellow for headings
+    color2 = '#47B5FF',         -- blue for data
+    
+    -- Refresh rate
+    update_interval = 1.0,
+    
+    -- Misc
+    double_buffer = true,
+    no_buffers = true,
+    text_buffer_size = 2048,
+};
+
+conky.text = [[
+${alignc}${color1}${font Share Tech Mono:bold:size=16}${time %A %B %d, %Y}
+${alignc}${color2}${font Share Tech Mono:bold:size=22}${time %H:%M:%S}${font}
+]];
