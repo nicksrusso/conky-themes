@@ -2,9 +2,9 @@
 
 conky.config = {
     -- Window settings
-    alignment = 'middle_middle',
+    alignment = 'top_middle',
     gap_x = 0,
-    gap_y = -300,  -- Adjust this to position vertically
+    gap_y = 80,  -- Adjust this to position vertically
     minimum_height = 100,
     minimum_width = 800,
     maximum_width = 800,
@@ -26,7 +26,7 @@ conky.config = {
     
     -- Text styling
     use_xft = true,
-    font = 'Share Tech Mono:size=10',
+    font = 'Eurostile:size=10',
     uppercase = false,
     override_utf8_locale = true,
     
@@ -45,6 +45,6 @@ conky.config = {
 };
 
 conky.text = [[
-${alignc}${color1}${font Share Tech Mono:bold:size=16}${time %A %B %d, %Y}
-${alignc}${color2}${font Share Tech Mono:bold:size=22}${time %H:%M:%S}${font}
+${alignc}${color1}${font Eurostile:bold:size=20}${time %A %B %d, %Y}
+${alignc}${color2}${font Eurostile:bold:size=28}${time %H:%M:%S}${font}
 ]];

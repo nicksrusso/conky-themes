@@ -7,7 +7,10 @@ killall conky
 sleep 1
 
 # Start the main conky
-conky -c ~/.conky/.conkyrc &
+conky -c /home/nick/repos/personal/conky-themes/retro-scifi/.dateconkyrc &
 
 # Start the date/time conky
-conky -c ~/.conky/.dateconkyrc &
+conky -c /home/nick/repos/personal/conky-themes/retro-scifi/.conkyrc &
+
+# Start CPU Conky
+conky -c /home/nick/repos/personal/conky-themes/retro-scifi/.cpuconkyrc &
