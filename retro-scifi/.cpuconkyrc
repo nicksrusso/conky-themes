@@ -1,4 +1,4 @@
--- Conky configuration for 16-core CPU display with ring gauges
+-- Conky configuration for 16-core CPU display with percentage circles
 -- For AMD 7800X3D processor
 
 conky.config = {
@@ -45,10 +45,6 @@ conky.config = {
     double_buffer = true,
     no_buffers = true,
     text_buffer_size = 2048,
-    
-    -- For gauge settings
-    gauge_width = 40,           -- Size of the gauge rings
-    gauge_height = 40,
 };
 
 conky.text = [[
@@ -67,26 +63,26 @@ ${voffset 5}${color1}${alignc}CORE ACTIVITY
 # Row 1 - Cores 1-4
 ${voffset 10}
 ${goto 40}${color1}CORE 01${goto 130}${color1}CORE 02${goto 220}${color1}CORE 03${goto 310}${color1}CORE 04
-${goto 40}${if_match ${cpu cpu1}<50}${color2}${else}${if_match ${cpu cpu1}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu1}}${goto 130}${if_match ${cpu cpu2}<50}${color2}${else}${if_match ${cpu cpu2}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu2}}${goto 220}${if_match ${cpu cpu3}<50}${color2}${else}${if_match ${cpu cpu3}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu3}}${goto 310}${if_match ${cpu cpu4}<50}${color2}${else}${if_match ${cpu cpu4}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu4}}
-${goto 50}${color1}${cpu cpu1}%${goto 140}${cpu cpu2}%${goto 230}${cpu cpu3}%${goto 320}${cpu cpu4}%
+${goto 40}${if_match ${cpu cpu1}<50}${color2}${else}${if_match ${cpu cpu1}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu1 40,40 47B5FF FFE863 -t}${goto 130}${if_match ${cpu cpu2}<50}${color2}${else}${if_match ${cpu cpu2}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu2 40,40 47B5FF FFE863 -t}${goto 220}${if_match ${cpu cpu3}<50}${color2}${else}${if_match ${cpu cpu3}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu3 40,40 47B5FF FFE863 -t}${goto 310}${if_match ${cpu cpu4}<50}${color2}${else}${if_match ${cpu cpu4}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu4 40,40 47B5FF FFE863 -t}
+${goto 50}${if_match ${cpu cpu1}<50}${color2}${else}${if_match ${cpu cpu1}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu1}%${goto 140}${if_match ${cpu cpu2}<50}${color2}${else}${if_match ${cpu cpu2}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu2}%${goto 230}${if_match ${cpu cpu3}<50}${color2}${else}${if_match ${cpu cpu3}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu3}%${goto 320}${if_match ${cpu cpu4}<50}${color2}${else}${if_match ${cpu cpu4}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu4}%
 
 # Row 2 - Cores 5-8
 ${voffset 15}
 ${goto 40}${color1}CORE 05${goto 130}${color1}CORE 06${goto 220}${color1}CORE 07${goto 310}${color1}CORE 08
-${goto 40}${if_match ${cpu cpu5}<50}${color2}${else}${if_match ${cpu cpu5}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu5}}${goto 130}${if_match ${cpu cpu6}<50}${color2}${else}${if_match ${cpu cpu6}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu6}}${goto 220}${if_match ${cpu cpu7}<50}${color2}${else}${if_match ${cpu cpu7}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu7}}${goto 310}${if_match ${cpu cpu8}<50}${color2}${else}${if_match ${cpu cpu8}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu8}}
-${goto 50}${color1}${cpu cpu5}%${goto 140}${cpu cpu6}%${goto 230}${cpu cpu7}%${goto 320}${cpu cpu8}%
+${goto 40}${if_match ${cpu cpu5}<50}${color2}${else}${if_match ${cpu cpu5}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu5 40,40 47B5FF FFE863 -t}${goto 130}${if_match ${cpu cpu6}<50}${color2}${else}${if_match ${cpu cpu6}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu6 40,40 47B5FF FFE863 -t}${goto 220}${if_match ${cpu cpu7}<50}${color2}${else}${if_match ${cpu cpu7}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu7 40,40 47B5FF FFE863 -t}${goto 310}${if_match ${cpu cpu8}<50}${color2}${else}${if_match ${cpu cpu8}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu8 40,40 47B5FF FFE863 -t}
+${goto 50}${if_match ${cpu cpu5}<50}${color2}${else}${if_match ${cpu cpu5}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu5}%${goto 140}${if_match ${cpu cpu6}<50}${color2}${else}${if_match ${cpu cpu6}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu6}%${goto 230}${if_match ${cpu cpu7}<50}${color2}${else}${if_match ${cpu cpu7}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu7}%${goto 320}${if_match ${cpu cpu8}<50}${color2}${else}${if_match ${cpu cpu8}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu8}%
 
 # Row 3 - Cores 9-12
 ${voffset 15}
 ${goto 40}${color1}CORE 09${goto 130}${color1}CORE 10${goto 220}${color1}CORE 11${goto 310}${color1}CORE 12
-${goto 40}${if_match ${cpu cpu9}<50}${color2}${else}${if_match ${cpu cpu9}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu9}}${goto 130}${if_match ${cpu cpu10}<50}${color2}${else}${if_match ${cpu cpu10}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu10}}${goto 220}${if_match ${cpu cpu11}<50}${color2}${else}${if_match ${cpu cpu11}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu11}}${goto 310}${if_match ${cpu cpu12}<50}${color2}${else}${if_match ${cpu cpu12}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu12}}
-${goto 50}${color1}${cpu cpu9}%${goto 140}${cpu cpu10}%${goto 230}${cpu cpu11}%${goto 320}${cpu cpu12}%
+${goto 40}${if_match ${cpu cpu9}<50}${color2}${else}${if_match ${cpu cpu9}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu9 40,40 47B5FF FFE863 -t}${goto 130}${if_match ${cpu cpu10}<50}${color2}${else}${if_match ${cpu cpu10}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu10 40,40 47B5FF FFE863 -t}${goto 220}${if_match ${cpu cpu11}<50}${color2}${else}${if_match ${cpu cpu11}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu11 40,40 47B5FF FFE863 -t}${goto 310}${if_match ${cpu cpu12}<50}${color2}${else}${if_match ${cpu cpu12}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu12 40,40 47B5FF FFE863 -t}
+${goto 50}${if_match ${cpu cpu9}<50}${color2}${else}${if_match ${cpu cpu9}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu9}%${goto 140}${if_match ${cpu cpu10}<50}${color2}${else}${if_match ${cpu cpu10}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu10}%${goto 230}${if_match ${cpu cpu11}<50}${color2}${else}${if_match ${cpu cpu11}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu11}%${goto 320}${if_match ${cpu cpu12}<50}${color2}${else}${if_match ${cpu cpu12}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu12}%
 
 # Row 4 - Cores 13-16
 ${voffset 15}
 ${goto 40}${color1}CORE 13${goto 130}${color1}CORE 14${goto 220}${color1}CORE 15${goto 310}${color1}CORE 16
-${goto 40}${if_match ${cpu cpu13}<50}${color2}${else}${if_match ${cpu cpu13}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu13}}${goto 130}${if_match ${cpu cpu14}<50}${color2}${else}${if_match ${cpu cpu14}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu14}}${goto 220}${if_match ${cpu cpu15}<50}${color2}${else}${if_match ${cpu cpu15}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu15}}${goto 310}${if_match ${cpu cpu16}<50}${color2}${else}${if_match ${cpu cpu16}<85}${color3}${else}${color4}${endif}${endif}${gauge 40,40 ${cpu cpu16}}
-${goto 50}${color1}${cpu cpu13}%${goto 140}${cpu cpu14}%${goto 230}${cpu cpu15}%${goto 320}${cpu cpu16}%
+${goto 40}${if_match ${cpu cpu13}<50}${color2}${else}${if_match ${cpu cpu13}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu13 40,40 47B5FF FFE863 -t}${goto 130}${if_match ${cpu cpu14}<50}${color2}${else}${if_match ${cpu cpu14}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu14 40,40 47B5FF FFE863 -t}${goto 220}${if_match ${cpu cpu15}<50}${color2}${else}${if_match ${cpu cpu15}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu15 40,40 47B5FF FFE863 -t}${goto 310}${if_match ${cpu cpu16}<50}${color2}${else}${if_match ${cpu cpu16}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu16 40,40 47B5FF FFE863 -t}
+${goto 50}${if_match ${cpu cpu13}<50}${color2}${else}${if_match ${cpu cpu13}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu13}%${goto 140}${if_match ${cpu cpu14}<50}${color2}${else}${if_match ${cpu cpu14}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu14}%${goto 230}${if_match ${cpu cpu15}<50}${color2}${else}${if_match ${cpu cpu15}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu15}%${goto 320}${if_match ${cpu cpu16}<50}${color2}${else}${if_match ${cpu cpu16}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu16}%
 
 ${voffset 15}${color1}${hr 2}
 ${alignc}${color1}ACTIVE CORES: ${color2}${execi 1 grep -c '^processor' /proc/cpuinfo}/${execi 1 nproc --all}
