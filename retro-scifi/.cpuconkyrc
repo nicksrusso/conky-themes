@@ -1,4 +1,4 @@
--- Conky configuration for 16-core CPU display with higher refresh rate
+-- Conky configuration with integer-based temperature graph
 -- For AMD 7800X3D processor
 
 conky.config = {
@@ -27,7 +27,7 @@ conky.config = {
     
     -- Text styling
     use_xft = true,
-    font = 'Share Tech Mono:size=10',
+    font = 'Share Tech Mono:size=9',
     uppercase = false,
     override_utf8_locale = true,
     
@@ -37,15 +37,16 @@ conky.config = {
     color2 = '#47B5FF',         -- blue for normal
     color3 = '#FF9933',         -- orange for high usage
     color4 = '#FF5252',         -- red for critical
+    color5 = '#FF86C8',         -- pink for temperature
     
-    -- Refresh rate - increased for more responsive bars
-    update_interval = 0.3,      -- Update 3+ times per second (was 1.0)
+    -- Refresh rate - high refresh for responsive graphs
+    update_interval = 0.3,
     
     -- Misc
-    double_buffer = true,       -- Prevents flickering
+    double_buffer = true,
     no_buffers = true,
     text_buffer_size = 2048,
-    cpu_avg_samples = 2,        -- Lower samples for quicker response
+    cpu_avg_samples = 2,
     net_avg_samples = 2,
 };
 
@@ -54,47 +55,47 @@ ${alignc}${color1}${font Share Tech Mono:bold:size=16}COMPUTE${font}
 ${alignc}${color1}AMD RYZEN 7800X3D${color2}
 ${color1}${hr 2}
 
-${voffset 10}${color1}TOTAL CPU: ${alignr}${if_match ${cpu cpu0}<85}${color2}${cpu cpu0}%${else}${color3}${cpu cpu0}%${endif}
-${voffset 2}${color2}${cpubar cpu0 10,380}
+# CPU and Temperature Trend Section
+${voffset 5}${color1}CPU USAGE / TEMPERATURE TRENDS (30s)
+${voffset 2}${color1}CPU: ${if_match ${cpu cpu0}<50}${color2}${else}${if_match ${cpu cpu0}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu0}%${alignr}${color1}TEMP: ${if_match ${execi 2 sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'}<70}${color2}${else}${color3}${endif}${execi 2 sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'}°C
 
-${voffset 10}${color1}TEMPERATURE: ${alignr}${if_match ${execi 2 sensors | grep 'Tctl' | awk '{print $2}' | cut -c2- | cut -f1 -d"."}<70}${color2}${execi 2 sensors | grep 'Tctl' | awk '{print $2}' | cut -c2-}${else}${color3}${execi 2 sensors | grep 'Tctl' | awk '{print $2}' | cut -c2-}${endif}
-${voffset 5}${color1}${hr 2}
+# Create a scale label for temperature
+${goto 15}${color1}90°C
+${goto 15}${color1}|
+${goto 15}${color1}|
+${goto 15}${color1}|
+${goto 15}${color1}|
+${goto 15}${color1}|
+${goto 15}${color1}30°C
 
-${voffset 5}${color1}${alignc}CORE ACTIVITY
+# The CPU usage graph (with dynamic color based on load)
+${goto 30}${if_match ${cpu cpu0}<50}${color2}${else}${if_match ${cpu cpu0}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu0 60,350 47B5FF FF5252 -t}
 
-${color1}CORE 01:${goto 90}${if_match ${cpu cpu1}<50}${color2}${else}${if_match ${cpu cpu1}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu1 7,260}${alignr}${cpu cpu1}%
+# Temperature graph just showing raw values
+${goto 30}${color5}${execgraph "sensors | grep 'Tctl' | awk '{print int(substr(\$2,2,2))}'" 60,350 FF86C8 FF5252 -t}
 
-${color1}CORE 02:${goto 90}${if_match ${cpu cpu2}<50}${color2}${else}${if_match ${cpu cpu2}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu2 7,260}${alignr}${cpu cpu2}%
+${voffset 2}${color1}${hr 2}
 
-${color1}CORE 03:${goto 90}${if_match ${cpu cpu3}<50}${color2}${else}${if_match ${cpu cpu3}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu3 7,260}${alignr}${cpu cpu3}%
+${voffset 3}${color1}${alignc}CORE ACTIVITY
 
-${color1}CORE 04:${goto 90}${if_match ${cpu cpu4}<50}${color2}${else}${if_match ${cpu cpu4}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu4 7,260}${alignr}${cpu cpu4}%
+${color1}01:${goto 40}${if_match ${cpu cpu1}<50}${color2}${else}${if_match ${cpu cpu1}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu1 5,300}${alignr}${cpu cpu1}%
+${color1}02:${goto 40}${if_match ${cpu cpu2}<50}${color2}${else}${if_match ${cpu cpu2}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu2 5,300}${alignr}${cpu cpu2}%
+${color1}03:${goto 40}${if_match ${cpu cpu3}<50}${color2}${else}${if_match ${cpu cpu3}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu3 5,300}${alignr}${cpu cpu3}%
+${color1}04:${goto 40}${if_match ${cpu cpu4}<50}${color2}${else}${if_match ${cpu cpu4}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu4 5,300}${alignr}${cpu cpu4}%
+${color1}05:${goto 40}${if_match ${cpu cpu5}<50}${color2}${else}${if_match ${cpu cpu5}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu5 5,300}${alignr}${cpu cpu5}%
+${color1}06:${goto 40}${if_match ${cpu cpu6}<50}${color2}${else}${if_match ${cpu cpu6}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu6 5,300}${alignr}${cpu cpu6}%
+${color1}07:${goto 40}${if_match ${cpu cpu7}<50}${color2}${else}${if_match ${cpu cpu7}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu7 5,300}${alignr}${cpu cpu7}%
+${color1}08:${goto 40}${if_match ${cpu cpu8}<50}${color2}${else}${if_match ${cpu cpu8}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu8 5,300}${alignr}${cpu cpu8}%
+${color1}09:${goto 40}${if_match ${cpu cpu9}<50}${color2}${else}${if_match ${cpu cpu9}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu9 5,300}${alignr}${cpu cpu9}%
+${color1}10:${goto 40}${if_match ${cpu cpu10}<50}${color2}${else}${if_match ${cpu cpu10}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu10 5,300}${alignr}${cpu cpu10}%
+${color1}11:${goto 40}${if_match ${cpu cpu11}<50}${color2}${else}${if_match ${cpu cpu11}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu11 5,300}${alignr}${cpu cpu11}%
+${color1}12:${goto 40}${if_match ${cpu cpu12}<50}${color2}${else}${if_match ${cpu cpu12}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu12 5,300}${alignr}${cpu cpu12}%
+${color1}13:${goto 40}${if_match ${cpu cpu13}<50}${color2}${else}${if_match ${cpu cpu13}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu13 5,300}${alignr}${cpu cpu13}%
+${color1}14:${goto 40}${if_match ${cpu cpu14}<50}${color2}${else}${if_match ${cpu cpu14}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu14 5,300}${alignr}${cpu cpu14}%
+${color1}15:${goto 40}${if_match ${cpu cpu15}<50}${color2}${else}${if_match ${cpu cpu15}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu15 5,300}${alignr}${cpu cpu15}%
+${color1}16:${goto 40}${if_match ${cpu cpu16}<50}${color2}${else}${if_match ${cpu cpu16}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu16 5,300}${alignr}${cpu cpu16}%
 
-${color1}CORE 05:${goto 90}${if_match ${cpu cpu5}<50}${color2}${else}${if_match ${cpu cpu5}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu5 7,260}${alignr}${cpu cpu5}%
-
-${color1}CORE 06:${goto 90}${if_match ${cpu cpu6}<50}${color2}${else}${if_match ${cpu cpu6}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu6 7,260}${alignr}${cpu cpu6}%
-
-${color1}CORE 07:${goto 90}${if_match ${cpu cpu7}<50}${color2}${else}${if_match ${cpu cpu7}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu7 7,260}${alignr}${cpu cpu7}%
-
-${color1}CORE 08:${goto 90}${if_match ${cpu cpu8}<50}${color2}${else}${if_match ${cpu cpu8}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu8 7,260}${alignr}${cpu cpu8}%
-
-${color1}CORE 09:${goto 90}${if_match ${cpu cpu9}<50}${color2}${else}${if_match ${cpu cpu9}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu9 7,260}${alignr}${cpu cpu9}%
-
-${color1}CORE 10:${goto 90}${if_match ${cpu cpu10}<50}${color2}${else}${if_match ${cpu cpu10}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu10 7,260}${alignr}${cpu cpu10}%
-
-${color1}CORE 11:${goto 90}${if_match ${cpu cpu11}<50}${color2}${else}${if_match ${cpu cpu11}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu11 7,260}${alignr}${cpu cpu11}%
-
-${color1}CORE 12:${goto 90}${if_match ${cpu cpu12}<50}${color2}${else}${if_match ${cpu cpu12}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu12 7,260}${alignr}${cpu cpu12}%
-
-${color1}CORE 13:${goto 90}${if_match ${cpu cpu13}<50}${color2}${else}${if_match ${cpu cpu13}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu13 7,260}${alignr}${cpu cpu13}%
-
-${color1}CORE 14:${goto 90}${if_match ${cpu cpu14}<50}${color2}${else}${if_match ${cpu cpu14}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu14 7,260}${alignr}${cpu cpu14}%
-
-${color1}CORE 15:${goto 90}${if_match ${cpu cpu15}<50}${color2}${else}${if_match ${cpu cpu15}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu15 7,260}${alignr}${cpu cpu15}%
-
-${color1}CORE 16:${goto 90}${if_match ${cpu cpu16}<50}${color2}${else}${if_match ${cpu cpu16}<85}${color3}${else}${color4}${endif}${endif}${cpubar cpu16 7,260}${alignr}${cpu cpu16}%
-
-${voffset 5}${color1}${hr 2}
+${voffset 3}${color1}${hr 2}
 ${alignc}${color1}ACTIVE CORES: ${color2}${execi 1 grep -c '^processor' /proc/cpuinfo}/${execi 1 nproc --all}
-${alignc}${color1}${font Share Tech Mono:size=10}CLOCK: ${color2}${freq_g} GHz
+${alignc}${color1}${font Share Tech Mono:size=9}CLOCK: ${color2}${freq_g} GHz
 ]];
