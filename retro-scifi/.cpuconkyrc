@@ -55,24 +55,12 @@ ${alignc}${color1}${font Share Tech Mono:bold:size=16}COMPUTE${font}
 ${alignc}${color1}AMD RYZEN 7800X3D${color2}
 ${color1}${hr 2}
 
-# CPU and Temperature Trend Section
-${voffset 5}${color1}CPU USAGE / TEMPERATURE TRENDS (30s)
-${voffset 2}${color1}CPU: ${if_match ${cpu cpu0}<50}${color2}${else}${if_match ${cpu cpu0}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu0}%${alignr}${color1}TEMP: ${if_match ${execi 2 sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'}<70}${color2}${else}${color3}${endif}${execi 2 sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'}°C
+# CPU and Temperature Graphs Section
+${voffset 5}${color1}CPU: ${if_match ${cpu cpu0}<50}${color2}${else}${if_match ${cpu cpu0}<85}${color3}${else}${color4}${endif}${endif}${cpu cpu0}%
+${voffset 2}${goto 30}${if_match ${cpu cpu0}<50}${color2}${else}${if_match ${cpu cpu0}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu0 60,350 47B5FF FF5252 -t}
 
-# Create a scale label for temperature
-${goto 15}${color1}90°C
-${goto 15}${color1}|
-${goto 15}${color1}|
-${goto 15}${color1}|
-${goto 15}${color1}|
-${goto 15}${color1}|
-${goto 15}${color1}30°C
-
-# The CPU usage graph (with dynamic color based on load)
-${goto 30}${if_match ${cpu cpu0}<50}${color2}${else}${if_match ${cpu cpu0}<85}${color3}${else}${color4}${endif}${endif}${cpugraph cpu0 60,350 47B5FF FF5252 -t}
-
-# Temperature graph just showing raw values
-${goto 30}${color5}${execgraph "sensors | grep 'Tctl' | awk '{print int(substr(\$2,2,2))}'" 60,350 FF86C8 FF5252 -t}
+${voffset 5}${color1}TEMP: ${if_match ${execi 2 sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'}<70}${color2}${else}${color3}${endif}${execi 2 sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'}°C
+${voffset 2}${goto 30}${color5}${execgraph "sensors | grep 'Tctl' | awk '{print substr($2,2,4)}'" 60,350 FF86C8 FF5252 -t}
 
 ${voffset 2}${color1}${hr 2}
 
